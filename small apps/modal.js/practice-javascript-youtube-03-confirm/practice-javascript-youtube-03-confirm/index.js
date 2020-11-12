@@ -1,103 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
-p{
-  margin: 0;
-}
-html {
-  font-family: poppins;
-  box-sizing: border-box;
+let fruits = [
+  {id: 1, title: 'Яблоки', price: 20, img: 'https://e1.edimdoma.ru/data/ingredients/0000/2374/2374-ed4_wide.jpg?1487746348'},
+  {id: 2, title: 'Апельсины', price: 30, img: 'https://fashion-stil.ru/wp-content/uploads/2019/04/apelsin-ispaniya-kg-92383155888981_small6.jpg'},
+  {id: 3, title: 'Манго', price: 40, img: 'https://itsfresh.ru/upload/iblock/178/178d8253202ef1c7af13bdbd67ce65cd.jpg'},
+]
+
+const toHTML = fruit => `
+  <div class="col">
+    <div class="card">
+      <img class="card-img-top" style="height: 300px;" src="${fruit.img}" alt="${fruit.title}">
+      <div class="card-body">
+        <h5 class="card-title">${fruit.title}</h5>
+        <a href="#" class="btn btn-primary" data-btn="price" data-id="${fruit.id}">Посмотреть цену</a>
+        <a href="#" class="btn btn-danger" data-btn="remove" data-id="${fruit.id}">Удалить</a>
+      </div>
+    </div>
+  </div>
+`
+
+function render() {
+  const html = fruits.map(toHTML).join('')
+  document.querySelector('#fruits').innerHTML = html
 }
 
-.widget {
-  min-height: 200px;
-  width: auto;
-  margin: 0 auto;
-  border: 2px solid rgb(0, 250, 208);
-  border-radius: 20px;
-  padding: 10px;
-  margin: 10px 0;
-}
-.widget__inner {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.rating img {
-  max-width: 100%;
-  width: 50px;
-  height: 50px;
-  border-radius: 20px;
-}
-.star__active {
-  background-color: gold;
-}
-.rating .widget__inner {
-}
-.stars__inner {
-  display: block;
-}
-.js__photo-container img {
-  max-width: 100%;
-  border-radius: 20px;
-}
-.widget input,
-.widget button {
-  max-width: 200px;
-  width: 100%;
-  border-radius: 5px;
-  padding: 10px 5px;
-  border: 1px solid rgb(0, 250, 208);
-  background-color: #fff;
-  margin: 10px 0;
-  transition: all 0.3s;
-}
-.widget button{
-  border-radius:50px;
-  text-transform: uppercase;
-  border: 1px solid rgb(163, 255, 240);
-  background-color: rgb(105, 94, 253);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
+render()
 
-}
-.widget button:hover{
-  background-color: rgb(188, 255, 111);
-  border: 1px solid rgb(174, 197, 193);
-  transition: all 0.3s;
-  color: #000;
+const priceModal = $.modal({
+  title: 'Цена на Товар',
+  closable: true,
+  width: '400px',
+  footerButtons: [
+    {text: 'Закрыть', type: 'primary', handler() {
+      priceModal.close()
+    }}
+  ]
+})
 
-}
-.g{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.brendI{
-  flex-direction: column;
-}
-.select {
-  position: relative;
-  display: block;
-  min-width: 220px;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px;
-}
+document.addEventListener('click', event => {
+  event.preventDefault()
+  const btnType = event.target.dataset.btn
+  const id = +event.target.dataset.id
+  const fruit = fruits.find(f => f.id === id)
 
-.select__head {
-  width: 100%;
-  max-width: 100%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding: 14px 15px;
-  font-size: 14px;
-  line-height: 18px;
-  color: rgba(66, 67, 72, 0.8);
-  cursor: pointer;
-}
-
-.select__head::after {
-  width: 10px;
-  height: 6px;
-  background: #FFF url("data:image/svg+xml,%3C
+  if (btnType === 'price') {
+    priceModal.setContent(`
+      <p>Цена на ${fruit.title}: <strong>${fruit.price}$</strong></p>
+    `)
+    priceModal.open()
+  } else if (btnType === 'remove') {
+    $.confirm({
+      title: 'Вы уверены?',
+      content: `<p>Вы удаляете фрукт: <strong>${fruit.title}</strong></p>`
+    }).then(() => {
+      fruits = fruits.filter(f => f.id !== id)
+      render()
+    }).catch(() => {
+      console.log('Cancel')
+    })
+  }
+})

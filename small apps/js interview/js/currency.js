@@ -1,48 +1,35 @@
-html, body {
-  box-sizing: border-box;
-}
+const input = [
+  ["usd", "buy", 10000],
+  ["usd", "sell", 5000],
+  ["gbp", "buy", 9000],
+  ["eur", "sell", 7000],
+  ["uah", "buy", 10000],
+  ["usd", "sell", 25000],
+];
 
-body {
-  background: #000;
-  color: #fff;
-  font-family: 'Oswald', sans-serif;
-}
+let result1 = (arr) => {
+  let result1 = {};
+  arr.forEach((i) => {
+    debugger;
+    let [currency, type, ammount] = i;
 
-a {
-text-align: center;
-color: #fff;
-text-decoration: none;
-display: block;
-text-transform: uppercase;
-}
+    if (!result1[currency]) {
+      result1[currency] = [0, 0];
+    }
+    result1[currency][type === "buy" ? 0 : 1] += ammount;
+  });
+  return result1;
+};
 
-nav ul li {
-  display: inline-block;
-  padding: 10px 40px 10px 0;
-  cursor: pointer;
-}
+console.log(result1(input));
 
-.container {
-  max-width: 1200px;
-  margin: 50px auto;
-}
+// let result2 = (arr) => {
+//   return arr.reduce((a, b) => {
+//       //debugger
+//     a[b[0]] = a[b[0]] || [0, 0];
+//     a[b[0]][b[1] === "buy" ? 0 : 1] += b[2];
+//     return a
+//   });
+// };
 
-.box {
-  border-radius: 4px;
-  box-shadow: 6px 7px 28px 0 rgba(16, 16, 16, 0.7);
-  min-height: 140px;
-  min-width: calc(22% - 28px);
-  padding: 0 10px;
-  margin: 15px;
-  border-width: 3px;
-  float: left;
-}
-
-.box.alizarin{
-border: 3px solid #e74c3c;
-}
-.box.wisteria{
-border: 3px solid #8e44ad;
-}
-.box.emerland{
-border: 3px
+// console.log(result2(input));

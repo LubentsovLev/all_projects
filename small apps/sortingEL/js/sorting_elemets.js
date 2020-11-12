@@ -1,9 +1,7 @@
-let brandI = document.querySelector(".brand");
-let brandsInn = document.querySelector(".brands");
-let pushB = document.querySelector(".pushB");
-let inputB = document.querySelector(".inputB");
-
-let phonesB = [
+let m = document.querySelector(".m");
+let push = document.querySelector(".push");
+let remove = document.querySelector(".remove");
+let phones = [
   {
     ratingReviews: "264 отзыва",
     price: { oldUan: "4 333 грн", newUan: "3 799 грн" },
@@ -169,19 +167,11 @@ let phonesB = [
     name: "Sony Xperia L1 Dual Black",
   },
 ];
-const brandSingle = [];
-const sortByBrand = (arr, brand) => {
-  brand = brand;
-  let newArr = [];
-  const a = JSON.parse(JSON.stringify(arr));
-  a.filter((v) => {
-    v.name = v.name.split(" ");
-    if (v.name[0].includes(brand === "" ? false : brand)) {
-      v.name = v.name.join(" ");
-      newArr.push(v);
-    }
-  });
-  a.forEach((e) => {
+
+function sothByIndex(arr) {
+  const temp = JSON.parse(JSON.stringify(arr));
+
+  temp.forEach((e) => {
     if (typeof e.price === "string") {
       e.price = +e.price.replace(/\D/g, "");
     } else {
@@ -190,48 +180,44 @@ const sortByBrand = (arr, brand) => {
     e.ratingReviews = +e.ratingReviews.replace(/\D/g, "");
     e.price = Math.ceil(e.price / 25);
   });
-  brandI.innerHTML = "";
-  if (!(newArr.length === 0)) {
-    newArr.forEach((e) => {
-      brandI.innerHTML += `
-      <div class='brendI' >
-        <h6>${e.name}</h6>
-        <p>Отзывов: ${e.ratingReviews}</p>
-        <b>Цена:${e.price} $</b>
-      </div>
-      `;
-    });
-  } else {
-    brandI.innerHTML += " <h6>Sorry nothing found</h6>";
-  }
-};
-const brands = (arr) => {
-  const a = JSON.parse(JSON.stringify(arr));
-  a.filter((v) => {
-    v.name = v.name.split(" ");
-    if (!brandSingle.includes(v.name[0])) {
-      brandSingle.push(v.name[0].toString());
-    }
+  temp.sort((a, b) => (a.ratingReviews > b.ratingReviews ? 1 : -1));
+  m.innerHTML = "";
+  temp.reverse().forEach((e) => {
+    m.innerHTML += `
+    <h1>${e.name}</h1>
+    <p>Отзывов: ${e.ratingReviews}</p>
+    <b>Цена:${e.price} $</b>
+    `;
   });
+}
+function sothByPrice(arr) {
+  const temp = JSON.parse(JSON.stringify(arr));
+  temp.forEach((e) => {
+    if (typeof e.price === "string") {
+      e.price = +e.price.replace(/\D/g, "");
+    } else {
+      e.price = +e.price.newUan.replace(/\D/g, "");
+    }
+    e.price = Math.ceil(e.price / 25);
+  });
+
+  temp.sort((a, b) => a.price - b.price);
+  m.innerHTML = "";
+  temp.forEach((e) => {
+    m.innerHTML += `
+    <h1>${e.name}</h1>
+    <p>Отзывов: ${e.ratingReviews}</p>
+    <b>Цена: ${e.price} $</b>
+    `;
+  });
+}
+
+let add = () => {
+  sothByIndex(phones);
 };
-brands(phonesB);
-
-brandSingle.map((i) => {
-  brandsInn.innerHTML += `
-  <input id="singleSelect0" class="__select__input" type="radio" name="singleSelect" checked />
-  <label onclick = "sortByBrand(phonesB, '${i}')" for="singleSelect0" class="__select__label">${i}</label>
-  `;
-});
-let g = inputB.value;
-
-let addB = () => {
-  inputB.value
-    ? (inputB.value = inputB.value[0].toUpperCase() + inputB.value.slice(1))
-    : "";
-  sortByBrand(phonesB, inputB.value);
+let removee = () => {
+  sothByPrice(phones);
 };
 
-pushB.onclick = addB;
-
-
-
+push.onclick = add;
+remove.onclick = removee;

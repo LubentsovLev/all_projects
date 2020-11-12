@@ -1,51 +1,60 @@
-html {
-  font-family: poppins;
-  box-sizing: border-box;
-}
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const numbers2 = [
+  6,
+  2,
+  5,
+  66,
+  77,
+  1,
+  2,
+  2,
+  3,
+  3,
+  4,
+  4,
+  1,
+  1,
+  1,
+  2,
+  2,
+  3,
+  4,
+  5,
+  10,
+];
+const people = [
+  { name: "a", age: "18" },
+  { name: "b", age: "10" },
+  { name: "c", age: "8" },
+  { name: "d", age: "22" },
+];
+const even = (arr) => {
+  arr.filter((val) => {
+    return val % 2 === 0;
+  });
+  return arr;
+};
 
-.widget {
-  min-height: 200px;
-  width: auto;
-  margin: 0 auto;
-  border: 2px solid rgb(0, 250, 208);
-  border-radius: 20px;
-  padding: 10px;
-  margin: 10px 0;
-}
-.widget__inner {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.rating img {
-  max-width: 100%;
-  width: 50px;
-  height: 50px;
-  border-radius: 20px;
-}
-.star__active {
-  background-color: gold;
-}
-.rating .widget__inner {
-}
-.stars__inner {
-  display: block;
-}
-.js__photo-container img {
-  max-width: 100%;
-  border-radius: 20px;
-}
-.widget input,
-.widget button {
-  max-width: 200px;
-  width: 100%;
-  border-radius: 5px;
-  padding: 10px 5px;
-  border: 1px solid rgb(0, 250, 208);
-  background-color: #fff;
-  margin: 10px 0;
-  transition: all 0.3s;
-}
-.widget button
+const adults = (arr) => {
+  let NewArr = arr.filter((val) => {
+    if (val.age >= 18) {
+      return true;
+    }
+  });
+  return NewArr;
+};
+
+const noDubl = (arr) => {
+  let newArray = arr.filter((val, i, array) => {
+    return (newArr = array.indexOf(val) === i);
+  });
+  newArray.sort((a, b) => {
+    return a - b;
+  });
+  return newArray;
+};
+console.log(even(numbers));
+
+console.log(adults(people));
+
+console.log(noDubl(numbers2));

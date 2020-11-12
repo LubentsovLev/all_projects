@@ -1,44 +1,35 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
-
-* {
-    box-sizing: border-box;
+class Animal {
+  constructor(options) {
+    this.name = options.name;
+    this.color = options.color;
+  }
+  voice() {
+    console.log("Base voice from", this.name);
+  }
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    min-height: 100vh;
+const dog = new Animal({ name: "goga", color: "white" });
+dog.voice();
+
+class Cat extends Animal {
+  constructor(options) {
+    super(options);
+    this.hasTail = options.hasTail;
+  }
+  voice() {
+    super.voice();
+    console.log(this.name, "says meoy");
+  }
 }
+const cat = new Cat({ name: "boby", color: "black", hasTail: false });
+cat.voice();
 
-button {
-    background-color: rebeccapurple;
-    color: white;
-    padding: 1rem;
-    border-radius: 4px;
-    border: none;
-    font-family: inherit;
-}
+Object.prototype.print = function () {
+  console.log(this);
+};
+cat.print();
 
-.popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.popup-container.active {
-    display: flex;
-}
-
-.popup {
-    background-color: #fff;
-    border-radi
+String.prototype.toTag = function (tagName) {
+  return `<${tagName}>${this}</${tagName}>`;
+};
+console.log('eminem'.toTag('b'));

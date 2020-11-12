@@ -1,6 +1,14 @@
-var array = [1, 2, 3, 4,5,6,7,8,9,10];
-const  _reverse = (array) => {
-    return array.reverse();
+let getPrimes = (arr) => {
+  const primes = [];
+  const seive = [];
+  for (let i = 2; i <= arr; i++) {
+    if (!seive[i]) {
+      primes.push(i);
+      for (let j = i * 2; j <= arr; j += i) {
+        seive[j] = true;
+      }
+    }
   }
-  console.log(_reverse(array));
-  
+  return primes
+};
+console.log(getPrimes(100));

@@ -1,13 +1,7 @@
-const filterBox = document.querySelectorAll(".box");
+let p1 = () => Promise.resolve("Got the list of users");
+let p2 = () => Promise.resolve("Got the list of tweets");
+let p3 = Promise.resolve("Got the weather");
 
-document.querySelector("nav").addEventListener("click", (event) => {
-  if (event.target.tagName !== "LI") return false;
-  let filterClass = event.target.dataset["f"];
-
-  filterBox.forEach((elem) => {
-    elem.classList.remove("hide");
-    if (!elem.classList.contains(filterClass) && filterClass !== "all") {
-      elem.classList.add("hide");
-    }
-  });
+Promise.all([p1(), p2(), p3]).then((res) => {
+  console.log(res);
 });

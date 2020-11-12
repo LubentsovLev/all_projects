@@ -1,26 +1,27 @@
-let pushWE = document.querySelector(".pushWE");
-let deleteWE = document.querySelector(".deleteWE");
-let WE_1 = document.querySelector(".WE_1");
+const SNArr = [1, 2, 1, 2, 3, 3, 5, 5, 23];
 
-async function generateJoke() {
-  const jokeRes = await fetch("https://icanhazdadjoke.com/", {
-    headers: { Accept: "application/json" },
-  });
-  const joke = await jokeRes.json();
-  WE_1.innerHTML = joke.joke;
-}
-//generateJoke();
-
-let myJoke = () => {
-  fetch("https://icanhazdadjoke.com/", {
-    headers: { Accept: "application/json" },
-  })
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
-      WE_1.innerHTML = data.joke;
-    });
+let singleNumberEl = (nums) => {
+  let uniq = new Set();
+  let uniqSum = 0;
+  let numSum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    const curr = nums[i];
+    if (!uniq.has(curr)) {
+      uniq.add(curr);
+      uniqSum += curr;
+    }
+    numSum += curr;
+  }
+  return uniqSum * 2 - numSum;
 };
 
-myJoke
+console.log(singleNumberEl(SNArr));
+
+let singleNumberEl2 = (nums) => {
+  let uniq = Array.from(new Set(nums));
+  let uniqSum = uniq.reduce((a, b) => a + b);
+  let numSum = nums.reduce((a, b) => a + b);
+  return uniqSum * 2 - numSum;
+};
+
+console.log(singleNumberEl2(SNArr));

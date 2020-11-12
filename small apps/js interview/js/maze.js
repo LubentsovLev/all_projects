@@ -1,43 +1,55 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 431.622 431.622" style="enable-background:new 0 0 431.622 431.622;" xml:space="preserve">
-<g>
-	<g>
-		<path d="M357.888,0.003H74.24C33.28,0.003,0,33.283,0,74.243v283.136c0,40.96,33.28,74.24,74.24,74.24h283.136
-			c40.96,0,74.24-33.28,74.24-74.24V74.243C432.128,33.283,398.848,0.003,357.888,0.003z M359.424,189.443
-			c-0.512,4.096-2.56,7.68-4.608,10.752l-56.832,55.296l13.312,77.824c1.536,9.728-4.608,18.944-14.336,20.48
-			c-4.096,0.512-7.68,0-11.264-1.536l-69.632-36.864l-69.632,36.864c-8.704,4.608-19.456,1.024-24.064-7.168
-			c-2.048-3.584-2.56-7.68-1.536-11.264l13.312-78.336l-56.832-55.296c-7.168-6.656-7.168-17.92-0.512-25.088
-			c2.56-2.56,6.144-4.608,10.24-5.12l77.824-11.776l34.816-70.656c4.096-8.704,14.848-12.288,23.552-8.192
-			c3.584,1.536,6.144,4.608,8.192,8.192l34.816,70.656l78.336,11.264C354.304,171.011,360.96,179.715,359.424,189.443z"/>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g
+let mazed = [
+  [1, 1, 1, 0, 0, 1],
+  [1, 1, 1, 1, 0, 1],
+  [0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0],
+  [1, 1, 1, 1, 1, 0],
+];
+
+console.log(mazed);
+
+function checkPath(start, end) {
+  let maze = [...mazed];
+  maze[start.y][start.x] = 5;
+
+  let siblings = getValidSib(start);
+
+  if (siblings.length > 0) {
+    for (let i = 0; i < siblings.length; i++) {
+      const current = siblings[i];
+
+      const isSolved = current.x === end.x && current.y === end.y;
+      const notVisited = maze[current.y][current.x] !== 5;
+
+      if (isSolved || (notVisited && checkPath(current, end))) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function getValidSib(cord) {
+  let maze = [...mazed];
+  const { x, y } = cord;
+
+  let cords = [];
+
+  if (maze[y - 1] !== undefined) {
+    cords.push({ x: x, y: y - 1, val: maze[y - 1][x] });
+  }
+  if (maze[y + 1] !== undefined) {
+    cords.push({ x: x, y: y + 1, val: maze[y + 1][x] });
+  }
+  if (maze[y][x - 1] !== undefined) {
+    cords.push({ x: x - 1, y: y, val: maze[y][x - 1] });
+  }
+  if (maze[y][x + 1] !== undefined) {
+    cords.push({ x: x + 1, y: y, val: maze[y][x + 1] });
+  }
+
+  return cords.filter((crd) => crd.val === 0);
+}
+
+console.log(checkPath({ x: 3, y: 0 }, { x: 5, y: 5 }));
