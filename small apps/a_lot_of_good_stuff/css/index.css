@@ -457,6 +457,11 @@ html {
   border-radius: 15px;
   margin-bottom: 20px;
 }
+@media (max-width: 600px) {
+  .food__img-inner {
+    flex-direction: column;
+  }
+}
 .food__img-item {
   width: 50%;
   padding: 10px;
@@ -602,10 +607,10 @@ html {
 .input .pokemons_input .none {
   display: none;
 }
-.none{
+.none {
   display: none !important;
 }
-.show{
+.show {
   display: block;
 }
 .hide_pokemons {
@@ -706,55 +711,54 @@ html {
 /* inputs */
 
 .inputs__widget .form-control {
-	position: relative;
-	margin: 20px 0;
+  position: relative;
+  margin: 20px 0;
   width: 300px;
   padding: 15px 0;
 }
 
 .inputs__widget .form-control input {
-	border: 0;
-	border-bottom: 2px solid #333;
-	padding: 15px 0;
-	display: block;
-	font-size: 18px;
-	font-family: 'Muli', sans-serif;
+  border: 0;
+  border-bottom: 2px solid #333;
+  padding: 15px 0;
+  display: block;
+  font-size: 18px;
+  font-family: "Muli", sans-serif;
   width: 100%;
   background-color: transparent;
-	transition: 0.1s ease-in;
+  transition: 0.1s ease-in;
 }
 
-.inputs__widget .form-control input:focus, 
+.inputs__widget .form-control input:focus,
 .inputs__widget .form-control input:valid {
-	border-bottom-color: darksalmon;
-	outline: none;
+  border-bottom-color: darksalmon;
+  outline: none;
 }
 
 .inputs__widget .form-control input:focus + label span,
 .inputs__widget .form-control input:valid + label span {
-	color: darksalmon;
-	transform: translateY(-30px);
+  color: darksalmon;
+  transform: translateY(-30px);
 }
 
 .inputs__widget .form-control label {
-	position: absolute;
-	top: 15px;
-	left: 0;
+  position: absolute;
+  top: 15px;
+  left: 0;
 }
 
-.inputs__widget .form-control label span{
-	display: inline-block;
-	font-size: 18px;
-	min-width: 5px;
-	transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.inputs__widget .form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.input{
+.input {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.zoom__span{
+.zoom__span {
   color: rgb(0, 68, 255);
   font-size: 45px;
-
 }
