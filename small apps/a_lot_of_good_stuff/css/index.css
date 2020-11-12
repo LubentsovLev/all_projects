@@ -461,6 +461,9 @@ html {
   .food__img-inner {
     flex-direction: column;
   }
+  .food__img-item{
+    width: 100%;
+  }
 }
 .food__img-item {
   width: 50%;
